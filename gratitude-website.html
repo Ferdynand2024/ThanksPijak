@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grateful to Pijak × IBM SkillsBuild</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:wght@700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  .grat-page { font-family: 'Nunito', sans-serif; background: #0a0a1a; color: #fff; min-height: 100vh; overflow-x: hidden; }
+
+  .hero { position: relative; text-align: center; padding: 60px 24px 40px; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 0%, #2a0a5e 0%, #0a0a1a 70%); z-index: 0; }
+  .stars { position: absolute; inset: 0; z-index: 0; }
+  .star { position: absolute; border-radius: 50%; background: #fff; animation: twinkle 2s infinite alternate; }
+  .confetti-wrap { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+  .conf { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: fall linear infinite; }
+
+  @keyframes twinkle { from { opacity: 0.2; } to { opacity: 1; } }
+  @keyframes fall { 0% { transform: translateY(-20px) rotate(0deg); opacity: 1; } 100% { transform: translateY(600px) rotate(720deg); opacity: 0; } }
+  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+  @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes glow { 0%, 100% { text-shadow: 0 0 20px #f7b731, 0 0 40px #f7b731; } 50% { text-shadow: 0 0 40px #f7b731, 0 0 80px #f7b731, 0 0 120px #f7b731aa; } }
+  @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-8px); } }
+  @keyframes fadeIn { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+
+  .badge { position: relative; z-index: 2; display: inline-block; background: linear-gradient(135deg, #f7b731, #ff6b35); color: #1a0a00; font-weight: 900; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; padding: 6px 18px; border-radius: 100px; margin-bottom: 20px; animation: pulse 2s infinite; }
+  .hero h1 { position: relative; z-index: 2; font-family: 'Playfair Display', serif; font-size: 38px; font-weight: 700; line-height: 1.15; margin-bottom: 8px; animation: glow 3s infinite; color: #f7e8a0; }
+  .hero h1 span { color: #f7b731; }
+  .subtitle { position: relative; z-index: 2; font-size: 15px; color: #c4b8f0; margin-bottom: 30px; animation: slideUp 1s ease 0.3s both; }
+  .subtitle strong { color: #a78bfa; }
+
+  .stars-row { position: relative; z-index: 2; display: flex; justify-content: center; gap: 6px; margin-bottom: 30px; }
+  .stars-row span { font-size: 24px; animation: float 2s ease-in-out infinite; }
+  .stars-row span:nth-child(2) { animation-delay: 0.3s; }
+  .stars-row span:nth-child(3) { animation-delay: 0.6s; }
+  .stars-row span:nth-child(4) { animation-delay: 0.9s; }
+  .stars-row span:nth-child(5) { animation-delay: 1.2s; }
+
+  .main-quote { position: relative; z-index: 2; max-width: 520px; margin: 0 auto 36px; background: rgba(255,255,255,0.06); border: 1px solid rgba(247,183,49,0.3); border-radius: 20px; padding: 24px 28px; backdrop-filter: blur(4px); }
+  .main-quote p { font-size: 16px; color: #e8dfff; line-height: 1.7; font-style: italic; }
+  .main-quote .author { margin-top: 12px; font-size: 13px; color: #a78bfa; font-weight: 700; font-style: normal; }
+
+  .section-title { text-align: center; font-family: 'Playfair Display', serif; font-size: 22px; color: #f7e8a0; margin-bottom: 8px; }
+  .section-sub { text-align: center; font-size: 13px; color: #9b8fd4; margin-bottom: 24px; letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── Photo Grid ── */
+  .photo-section { padding: 36px 20px; }
+  .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 720px; margin: 0 auto; }
+  @media (max-width: 540px) { .photo-grid { grid-template-columns: repeat(2, 1fr); } }
+
+  .photo-item { border-radius: 16px; overflow: hidden; aspect-ratio: 4/3; position: relative; border: 1.5px solid rgba(167,139,250,0.25); animation: fadeIn 0.6s ease both; }
+  .photo-item:nth-child(1) { animation-delay: 0.05s; }
+  .photo-item:nth-child(2) { animation-delay: 0.12s; }
+  .photo-item:nth-child(3) { animation-delay: 0.19s; }
+  .photo-item:nth-child(4) { animation-delay: 0.26s; }
+  .photo-item:nth-child(5) { animation-delay: 0.33s; }
+  .photo-item:nth-child(6) { animation-delay: 0.40s; }
+
+  .photo-item img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+  .photo-item:hover img { transform: scale(1.05); }
+
+  .photo-item .overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,26,0.6) 0%, transparent 60%); opacity: 0; transition: opacity 0.3s ease; }
+  .photo-item:hover .overlay { opacity: 1; }
+
+  .photo-item .star-badge { position: absolute; top: 8px; right: 8px; font-size: 14px; background: rgba(0,0,0,0.45); border-radius: 100px; padding: 2px 7px; backdrop-filter: blur(4px); }
+
+  /* ── Moments ── */
+  .moments { padding: 10px 20px 36px; }
+  .moments-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; max-width: 680px; margin: 0 auto; }
+  .moment-card { background: rgba(255,255,255,0.04); border: 0.5px solid rgba(167,139,250,0.2); border-radius: 14px; padding: 16px 18px; position: relative; overflow: hidden; }
+  .moment-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; border-radius: 14px 14px 0 0; }
+  .moment-card.m1::before { background: linear-gradient(90deg, #f7b731, #ff6b35); }
+  .moment-card.m2::before { background: linear-gradient(90deg, #a78bfa, #7c3aed); }
+  .moment-card.m3::before { background: linear-gradient(90deg, #34d399, #059669); }
+  .moment-card.m4::before { background: linear-gradient(90deg, #f472b6, #db2777); }
+  .moment-card h3 { font-size: 13px; font-weight: 700; color: #f7e8a0; margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+  .moment-card p { font-size: 11.5px; color: #b8afda; line-height: 1.6; }
+
+  .cert-section { padding: 10px 20px 36px; }
+  .cert-card { max-width: 680px; margin: 0 auto; background: linear-gradient(135deg, rgba(247,183,49,0.08), rgba(167,139,250,0.08)); border: 1px solid rgba(247,183,49,0.3); border-radius: 20px; padding: 28px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap; }
+  .cert-icon { font-size: 52px; flex-shrink: 0; animation: float 3s ease-in-out infinite; }
+  .cert-text h3 { font-family: 'Playfair Display', serif; font-size: 18px; color: #f7e8a0; margin-bottom: 6px; }
+  .cert-text p { font-size: 13px; color: #c4b8f0; line-height: 1.6; }
+  .cert-text .name-tag { display: inline-block; background: rgba(247,183,49,0.15); border: 1px solid rgba(247,183,49,0.4); color: #f7b731; font-weight: 700; font-size: 13px; padding: 4px 14px; border-radius: 100px; margin-top: 10px; }
+
+  .thanks-section { padding: 36px 20px; text-align: center; }
+  .thanks-bubble { max-width: 540px; margin: 0 auto 24px; position: relative; }
+  .thanks-bubble .big-thanks { font-family: 'Playfair Display', serif; font-size: 52px; color: #f7b731; animation: glow 3s infinite; line-height: 1; }
+  .thanks-bubble .org-name { font-size: 20px; font-weight: 900; color: #fff; margin: 8px 0 4px; letter-spacing: 1px; }
+  .thanks-bubble .collab { font-size: 13px; color: #9b8fd4; }
+
+  .pills { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 24px auto; max-width: 540px; }
+  .pill { background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.15); border-radius: 100px; padding: 6px 16px; font-size: 12px; color: #c4b8f0; display: flex; align-items: center; gap: 6px; }
+  .pill span { font-size: 14px; }
+
+  .footer { padding: 24px 20px 36px; text-align: center; border-top: 0.5px solid rgba(255,255,255,0.07); }
+  .footer p { font-size: 12px; color: #6b5fa0; }
+  .footer .email { color: #a78bfa; font-weight: 700; }
+  .footer .heart { color: #f472b6; display: inline-block; animation: pulse 1.5s infinite; }
+
+  .divider { width: 60px; height: 2px; background: linear-gradient(90deg, #f7b731, #a78bfa); border-radius: 2px; margin: 0 auto 28px; }
+</style>
+</head>
+<body>
+<div class="grat-page">
+  <div class="hero">
+    <div class="hero-bg"></div>
+    <div class="stars" id="stars"></div>
+    <div class="confetti-wrap" id="confetti"></div>
+
+    <div class="badge">🎓 Learning Journey 2024</div>
+    <h1>Grateful to <span>Pijak</span><br>in Collaboration with<br><span>IBM SkillsBuild</span></h1>
+    <p class="subtitle">An <strong>incredible journey</strong> of learning, growing, and achieving together</p>
+    <div class="stars-row">
+      <span>⭐</span><span>🌟</span><span>✨</span><span>🌟</span><span>⭐</span>
+    </div>
+    <div class="main-quote">
+      <p>"This program has opened my eyes to new possibilities, equipped me with real-world skills, and connected me with an amazing community. I am truly grateful for every lesson, every challenge, and every breakthrough."</p>
+      <div class="author">— A Heartfelt Thank You</div>
+    </div>
+  </div>
+
+  <!-- Photo Section: 6 gambar lokal -->
+  <div class="photo-section">
+    <p class="section-sub">📸 Activity Documentation</p>
+    <p class="section-title">Captured Moments</p>
+    <div class="divider"></div>
+    <div class="photo-grid">
+      <div class="photo-item">
+        <img src="/img/gambar1" alt="Dokumentasi Kegiatan 1" loading="lazy">
+        <div class="overlay"></div>
+        <div class="star-badge">✨</div>
+      </div>
+      <div class="photo-item">
+        <img src="/img/gambar2" alt="Dokumentasi Kegiatan 2" loading="lazy">
+        <div class="overlay"></div>
+        <div class="star-badge">⭐</div>
+      </div>
+      <div class="photo-item">
+        <img src="/img/gambar3" alt="Dokumentasi Kegiatan 3" loading="lazy">
+        <div class="overlay"></div>
+        <div class="star-badge">🌟</div>
+      </div>
+      <div class="photo-item">
+        <img src="/img/gambar4" alt="Dokumentasi Kegiatan 4" loading="lazy">
+        <div class="overlay"></div>
+        <div class="star-badge">💫</div>
+      </div>
+      <div class="photo-item">
+        <img src="/img/gambar5" alt="Dokumentasi Kegiatan 5" loading="lazy">
+        <div class="overlay"></div>
+        <div class="star-badge">🎯</div>
+      </div>
+      <div class="photo-item">
+        <img src="/img/gambar6" alt="Dokumentasi Kegiatan 6" loading="lazy">
+        <div class="overlay"></div>
+        <div class="star-badge">🏆</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="moments">
+    <p class="section-sub">💜 Highlights</p>
+    <p class="section-title">What I Learned & Gained</p>
+    <div class="divider"></div>
+    <div class="moments-grid">
+      <div class="moment-card m1">
+        <h3>🚀 New Skills</h3>
+        <p>Gained hands-on experience with IBM tools, cloud technologies, and real-world problem solving through SkillsBuild curriculum.</p>
+      </div>
+      <div class="moment-card m2">
+        <h3>🌐 Networking</h3>
+        <p>Connected with inspiring peers, mentors, and professionals who expanded my perspective and opened new doors.</p>
+      </div>
+      <div class="moment-card m3">
+        <h3>🏅 Achievement</h3>
+        <p>Earned a recognition of competency that validates the hard work and dedication throughout this incredible journey.</p>
+      </div>
+      <div class="moment-card m4">
+        <h3>💖 Community</h3>
+        <p>Became part of a supportive learning community that believed in growth, collaboration, and lifting each other up.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="cert-section">
+    <p class="section-sub">🏆 Recognition</p>
+    <p class="section-title">Certificate of Competency</p>
+    <div class="divider"></div>
+    <div class="cert-card">
+      <div class="cert-icon">🎖️</div>
+      <div class="cert-text">
+        <h3>Certificate of Competency Awarded</h3>
+        <p>Successfully completed the program in collaboration between <strong style="color:#f7b731">Pijak</strong> and <strong style="color:#a78bfa">IBM SkillsBuild</strong>. This certificate stands as a testament to dedication, resilience, and the love of learning.</p>
+        <div class="name-tag">Dicodine · IBM SkillsBuild</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="thanks-section">
+    <p class="section-sub">🙏 With Gratitude</p>
+    <div class="thanks-bubble">
+      <div class="big-thanks">Thank You!</div>
+      <div class="org-name">Pijak × IBM SkillsBuild</div>
+      <div class="collab">For an Incredible Learning Journey</div>
+    </div>
+    <div class="pills">
+      <div class="pill"><span>🎓</span> Quality Education</div>
+      <div class="pill"><span>💡</span> Hands-on Learning</div>
+      <div class="pill"><span>🌟</span> Expert Mentorship</div>
+      <div class="pill"><span>🤝</span> Real Collaboration</div>
+      <div class="pill"><span>🏆</span> Certification</div>
+      <div class="pill"><span>💜</span> Supportive Community</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>📩 <span class="email">danugans@gmail.com</span></p>
+    <p style="margin-top:8px;">Made with <span class="heart">♥</span> in gratitude · Pijak × IBM SkillsBuild 2024</p>
+  </div>
+</div>
+
+<script>
+  // Bintang-bintang di background
+  const starsEl = document.getElementById('stars');
+  for (let i = 0; i < 60; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `width:${size}px;height:${size}px;left:${Math.random()*100}%;top:${Math.random()*100}%;animation-delay:${Math.random()*3}s;animation-duration:${1.5+Math.random()*2}s;`;
+    starsEl.appendChild(s);
+  }
+
+  // Konfeti
+  const confEl = document.getElementById('confetti');
+  const cols = ['#f7b731','#a78bfa','#f472b6','#34d399','#60a5fa','#ff6b35'];
+  for (let i = 0; i < 25; i++) {
+    const c = document.createElement('div');
+    c.className = 'conf';
+    c.style.cssText = `left:${Math.random()*100}%;top:-10px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${3+Math.random()*4}s;animation-delay:${Math.random()*5}s;width:${4+Math.random()*8}px;height:${4+Math.random()*8}px;border-radius:${Math.random()>0.5?'50%':'2px'};`;
+    confEl.appendChild(c);
+  }
+</script>
+</body>
+</html>
